@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>nytimes comments</title>
+    <script src="/main.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="/main.css"/>
+  </head>
+  <body>
+    <input type="search" id="search"/>
+    <button type="button" id="searchButton">Search</button>
+    <select id="author">
+      <option value="56166904">Larry Eisenberg</option>
+      <option value="47215913">Technic Ally</option>
+    </select>
+    <button type="button" class="previous">Previous</button>
+    <button type="button" class="next">Next</button>
+    <span class="number"></span>
+    <p id="date"></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Date<br/><button id="descendingDate">▼</button><button id="ascendingDate">▲</button></th>
+          <th>Body<br/><button id="descendingCommentBody">▼</button><button id="ascendingCommentBody">▲</button></th>
+          <th>Link to comment</th>
+          <th>Likes<br/><button id="descendingRecommendations">▼</button><button id="ascendingRecommendations">▲</button></th>
+          <th>Picks<br/><button id="descendingEditorsSelection">▼</button><button id="ascendingEditorsSelection">▲</button></th>
+          <th>Reply count<br/><button id="descendingReplyCount">▼</button><button id="ascendingReplyCount">▲</button></th>
+        </tr>
+      </thead>
+      <tbody id="comments"></tbody>
+    </table>
+    <noscript><p><strong>JavaScript is required to view the comments.</strong></p></noscript>
+    <button type="button" class="previous">Previous</button>
+    <button type="button" class="next">Next</button>
+    <span class="number"></span>
+  </body>
+</html>

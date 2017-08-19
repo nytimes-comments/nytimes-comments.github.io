@@ -1,0 +1,55 @@
+body {
+  font-family: Roboto, sans-serif;
+}
+
+input {
+  border: 1px solid #aaa;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+  border: 1px solid #aaa;
+  border-collapse: collapse;
+  margin: 5px;
+}
+
+td, th {
+  padding: 2px;
+  border: 1px solid #aaa;
+  overflow-wrap: break-word;
+  text-align: center;
+}
+
+td:nth-child(2) {
+  text-align: left;
+}
+
+/* 20% 40% 20% 7% 7% 6% */
+
+th:nth-child(2) {
+  width: 40%;
+}
+
+th:nth-child(4), th:nth-child(6) {
+  width: 7%;
+}
+
+th:nth-child(5) {
+  width: 6%;
+}
+
+th > button {
+  font-size: 20px;
+  padding: 0;
+  margin: 3px;
+}
+
+.pick {
+  background-image: url(https://a1.nyt.com/assets/article/20170731-132454/images/sprite/sprite-no-repeat.svg);
+  background-repeat: no-repeat;
+  background-position: -413px -135px;
+  width: 32px;
+  height: 41px;
+  margin: auto;
+}
