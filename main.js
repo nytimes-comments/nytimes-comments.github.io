@@ -83,6 +83,7 @@ function fetch() {
     const parsed = JSON.parse(this.responseText);
     comments = filtered = parsed["data"];
     index = 0;
+    query = null;
     likes = 0;
     picks = 0;
     replies = 0;
