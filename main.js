@@ -4,6 +4,13 @@ let tbody;
 let comments = [];
 let filtered = [];
 let query = null;
+let query_raw;
+let likes;
+let likes_raw;
+let picks;
+let picks_raw;
+let replies;
+let replies_raw;
 let index = 0;
 const count = 25;
 
@@ -62,18 +69,36 @@ function displayTable() {
     tbody.appendChild(fragment);
 }
 
+function updateTotal() {
+    let prefix = "";
+    if (query) {
+        prefix = "for search '" + query_raw + "': ";
+    }
+    document.getElementById("total").innerText = prefix + filtered.length + " comments, " + likes + " likes, " + picks + " picks, " + replies + " replies";
+}
+
 function fetch() {
   const request = new XMLHttpRequest();
   request.addEventListener("load", function() {
     const parsed = JSON.parse(this.responseText);
     comments = filtered = parsed["data"];
+    likes = 0;
+    picks = 0;
+    replies = 0;
     for (const comment of comments) {
       comment["commentBodyLength"] = comment["commentBody"].length;
       const cell = document.createElement("td");
       cell.innerHTML = comment["commentBody"];
       comment["commentBodyCell"] = cell;
+      likes += comment["recommendations"];
+      picks += comment["editorsSelection"];
+      replies += comment["replyCount"];
     }
+    likes_raw = likes;
+    picks_raw = picks;
+    replies_raw = replies;
     document.getElementById("date").innerText = "Last updated at " + formatDate(new Date(parsed["date"] * 1000)) + ".";
+    updateTotal();
     displayTable();
   });
   request.open("GET", "/comments/" + document.getElementById("author").value + ".json");
@@ -192,14 +217,24 @@ addEventListener('DOMContentLoaded', function() {
   function doSearch() {
     if (query != null) {
       filtered = [];
+      likes = 0;
+      picks = 0;
+      replies = 0;
       for (const comment of comments) {
         if (comment["commentBodyCell"].innerText.search(query) != -1) {
           filtered.push(comment);
+          likes += comment["recommendations"];
+          picks += comment["editorsSelection"];
+          replies += comment["replyCount"];
         }
       }
     } else {
       filtered = comments;
+      likes = likes_raw;
+      picks = picks_raw;
+      replies = replies_raw;
     }
+    updateTotal();
     displayTable();
   }
 
@@ -211,8 +246,10 @@ addEventListener('DOMContentLoaded', function() {
 
     if (search.value.length) {
       query = new RegExp(escapeRegExp(search.value), "i");
+      query_raw = search.value;
     } else {
       query = null;
+      query_raw = search.value;
     }
     index = 0;
     doSearch();
