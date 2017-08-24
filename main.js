@@ -82,6 +82,7 @@ function fetch() {
   request.addEventListener("load", function() {
     const parsed = JSON.parse(this.responseText);
     comments = filtered = parsed["data"];
+    index = 0;
     likes = 0;
     picks = 0;
     replies = 0;
