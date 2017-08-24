@@ -86,6 +86,7 @@ addEventListener('DOMContentLoaded', function() {
   function sort(key, ascending) {
     const less = ascending ? -1 : 1;
 
+    // maintain an index to perform a stable sort
     for (let i = 0; i < comments.length; i++) {
       comments[i]["index"] = i;
     }
