@@ -14,6 +14,10 @@ let replies_raw;
 let index = 0;
 const count = 25;
 
+if (!(Symbol.iterator in HTMLCollection.prototype)) {
+  HTMLCollection.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
+}
+
 function formatDate(date) {
   return date.toISOString().replace("T", " ").replace("Z", "").split(".")[0];
 }
