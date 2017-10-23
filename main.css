@@ -46,7 +46,7 @@ th > button {
 }
 
 .pick {
-  background-image: url(https://a1.nyt.com/assets/article/20170731-132454/images/sprite/sprite-no-repeat.svg);
+  background-image: url(sprite-no-repeat.svg);
   background-repeat: no-repeat;
   background-position: -413px -135px;
   width: 32px;
