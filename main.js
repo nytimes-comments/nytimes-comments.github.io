@@ -23,62 +23,62 @@ function formatDate(date) {
 }
 
 function displayTable() {
-    const end = Math.min(index + count, filtered.length);
-    for (const number of document.getElementsByClassName("number")) {
-      number.innerText = index + "-" + end + " / " + filtered.length;
-      if (query !== null) {
-        number.innerText += " matches (" + comments.length + " total)";
-      }
+  const end = Math.min(index + count, filtered.length);
+  for (const number of document.getElementsByClassName("number")) {
+    number.innerText = index + "-" + end + " / " + filtered.length;
+    if (query !== null) {
+      number.innerText += " matches (" + comments.length + " total)";
+    }
+  }
+
+  const fragment = document.createDocumentFragment();
+  for (const comment of filtered.slice(index, index + count)) {
+    const row = document.createElement("tr");
+    fragment.appendChild(row);
+    const date = new Date(comment["approveDate"] * 1000);
+    const time = document.createElement("time");
+
+    // Date
+    time.setAttribute("datetime", date.toISOString());
+    time.appendChild(document.createTextNode(formatDate(date)));
+    row.insertCell().appendChild(time);
+
+    // Body
+    row.appendChild(comment["commentBodyCell"]);
+
+    // Article
+    const articleLink = document.createElement("a");
+    articleLink.href = comment["asset_assetURL"] + "#permid=" + comment["permid"];
+    articleLink.appendChild(document.createTextNode(comment["asset_assetTitle"]));
+    articleLink.target = "_blank";
+    row.insertCell().appendChild(articleLink);
+
+    // Likes
+    row.insertCell().appendChild(document.createTextNode(comment["recommendations"]));
+
+    // NYT Picks
+    const cell = row.insertCell();
+    if (comment["editorsSelection"]) {
+      const sprite = document.createElement("p");
+      sprite.classList.add("pick");
+      cell.appendChild(sprite);
     }
 
-    const fragment = document.createDocumentFragment();
-    for (const comment of filtered.slice(index, index + count)) {
-      const row = document.createElement("tr");
-      fragment.appendChild(row);
-      const date = new Date(comment["approveDate"] * 1000);
-      const time = document.createElement("time");
-
-      // Date
-      time.setAttribute("datetime", date.toISOString());
-      time.appendChild(document.createTextNode(formatDate(date)));
-      row.insertCell().appendChild(time);
-
-      // Body
-      row.appendChild(comment["commentBodyCell"]);
-
-      // Article
-      const articleLink = document.createElement("a");
-      articleLink.href = comment["asset_assetURL"] + "#permid=" + comment["permid"];
-      articleLink.appendChild(document.createTextNode(comment["asset_assetTitle"]));
-      articleLink.target = "_blank";
-      row.insertCell().appendChild(articleLink);
-
-      // Likes
-      row.insertCell().appendChild(document.createTextNode(comment["recommendations"]));
-
-      // NYT Picks
-      const cell = row.insertCell();
-      if (comment["editorsSelection"]) {
-        const sprite = document.createElement("p");
-        sprite.classList.add("pick");
-        cell.appendChild(sprite);
-      }
-
-      // Reply count
-      row.insertCell().appendChild(document.createTextNode(comment["replyCount"]));
-    }
-    while (tbody.firstChild) {
-      tbody.removeChild(tbody.firstChild);
-    }
-    tbody.appendChild(fragment);
+    // Reply count
+    row.insertCell().appendChild(document.createTextNode(comment["replyCount"]));
+  }
+  while (tbody.firstChild) {
+    tbody.removeChild(tbody.firstChild);
+  }
+  tbody.appendChild(fragment);
 }
 
 function updateTotal() {
-    let prefix = "";
-    if (query) {
-        prefix = "for search '" + query_raw + "': ";
-    }
-    document.getElementById("total").innerText = prefix + filtered.length + " comments, " + likes + " likes, " + picks + " picks, " + replies + " replies";
+  let prefix = "";
+  if (query) {
+    prefix = "for search '" + query_raw + "': ";
+  }
+  document.getElementById("total").innerText = prefix + filtered.length + " comments, " + likes + " likes, " + picks + " picks, " + replies + " replies";
 }
 
 function fetch() {
