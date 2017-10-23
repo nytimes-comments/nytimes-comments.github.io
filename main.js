@@ -184,7 +184,7 @@ addEventListener('DOMContentLoaded', function() {
   });
 
   const author = document.getElementById("author");
-  var oldAuthor = localStorage.getItem("author");
+  const oldAuthor = localStorage.getItem("author");
   for (const option of author.children) {
     if (option.value == oldAuthor) {
       author.value = oldAuthor;
