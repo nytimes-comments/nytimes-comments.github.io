@@ -26,14 +26,14 @@ function displayTable() {
     const end = Math.min(index + count, filtered.length);
     for (const number of document.getElementsByClassName("number")) {
       number.innerText = index + "-" + end + " / " + filtered.length;
-      if (query != null) {
+      if (query !== null) {
         number.innerText += " matches (" + comments.length + " total)";
       }
     }
 
     const fragment = document.createDocumentFragment();
     for (const comment of filtered.slice(index, index + count)) {
-      const row = document.createElement("tr")
+      const row = document.createElement("tr");
       fragment.appendChild(row);
       const date = new Date(comment["approveDate"] * 1000);
       const time = document.createElement("time");
@@ -61,7 +61,7 @@ function displayTable() {
       if (comment["editorsSelection"]) {
         const sprite = document.createElement("p");
         sprite.classList.add("pick");
-        cell.appendChild(sprite)
+        cell.appendChild(sprite);
       }
 
       // Reply count
@@ -199,7 +199,7 @@ addEventListener('DOMContentLoaded', function() {
 
   for (const previous of document.getElementsByClassName("previous")) {
     previous.addEventListener("click", function() {
-      if (index == 0) {
+      if (index === 0) {
         return;
       }
       index -= count;
@@ -221,7 +221,7 @@ addEventListener('DOMContentLoaded', function() {
 
   const search = document.getElementById("search");
   function doSearch() {
-    if (query != null) {
+    if (query !== null) {
       filtered = [];
       likes = 0;
       picks = 0;
